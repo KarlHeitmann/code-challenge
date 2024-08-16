@@ -1,5 +1,13 @@
 AllCops:
   NewCops: enable
+  SuggestExtensions: false
 
 Style/StringLiterals:
   EnforcedStyle: double_quotes
+
+Layout/FirstHashElementIndentation:
+  EnforcedStyle: consistent
+
+Metrics/BlockLength:
+  Exclude:
+    - "spec/**/*.rb"

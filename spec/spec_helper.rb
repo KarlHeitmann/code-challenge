@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require "image_parser"
+
 begin
   # NOTE: If you want to enable debug, you can add the "debug" gem on your custom
   # Gemfile (Gemfile-custom). See the example found on: Gemfile-custom.sample

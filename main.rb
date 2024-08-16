@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
-require "nokogiri"
+require_relative "lib/image_parser"
 
-puts "Hello world"
+html_string = File.read(ARGV[0])
+puts ImageParser.new(html_string:).parse
