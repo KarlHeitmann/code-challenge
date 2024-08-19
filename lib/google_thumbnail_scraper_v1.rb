@@ -1,37 +1,14 @@
 # frozen_string_literal: true
 
+require_relative "base_thumbnail_scraper"
+
 # PORO to represent an artwork
-class GoogleThumbnailScraperV1
+class GoogleThumbnailScraperV1 < BaseThumbnailScraper
   DOMAIN = "https://www.google.com"
   REGEX_CAPTURE_IMAGE_STRING = ->(image_id) { /\(function\(\){var s='([^']+)';var ii=\['#{image_id}'\];_setImagesSrc\(ii,s\);}/ } # rubocop:disable Layout/LineLength
   attr_accessor :name, :extensions, :link, :image
 
-  def initialize(name:, extensions:, link:, image:)
-    @name = name
-    @extensions = extensions
-    @link = link
-    @image = image
-  end
-
   # @param [Nokogiri::XML::Element] element
-  def self.parse(element)
-    name = extract_name(element)
-    link = extract_link(element)
-    image = extract_image(element)
-    extensions = extract_extensions(element)
-    new(name:, extensions:, link:, image:)
-  end
-
-  def as_json
-    {
-      "name" => @name,
-      "link" => @link,
-      "image" => @image
-    }.tap do |hash|
-      hash["extensions"] = [@extensions] unless @extensions == ""
-    end
-  end
-
   def self.extract_name(element)
     element.get_attribute("aria-label")
   end
